@@ -1,0 +1,34 @@
+{
+  "name": "use-auth",
+  "version": "1.0.0",
+  "description": "authentication api which provides signing up, logging in and reset password functionalities. Authentication done using Json Web Tokens(JWT's)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usernameisleye/use-auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usernameisleye/use-auth/issues"
+  },
+  "homepage": "https://github.com/usernameisleye/use-auth#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "handlebars": "^4.7.7",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.2.0",
+    "nodemailer": "^6.9.2",
+    "nodemon": "^2.0.22"
+  }
+}
