@@ -1,37 +1,18 @@
-const router = require("express").Router();
-// Controller
-const {
-    signup_user,
-    login_user,
-    logout_user,
-    
-    forgot_password,
-    reset_password,
-} = require("../controllers/user.controller");
-const authMiddleware = require("../middleware/authMiddleware");
+const router = require("express").Router()
+const auth = require("../middleware/auth.middleware")
+const { signup, login, logout, forgot, reset } = require("../controllers/user.controller")
 
 // Routes
-router
-.route("/signup")
-.post(signup_user);
+router.post("/signup", signup)
 
-router
-.route("/login")
-.post(login_user);
+router.post("/login", login)
 
-// Auth Mid...
-router.use(authMiddleware);
+router.use(auth)
 
-router
-.route("/logout")
-.post(logout_user);
+router.post("/logout", logout)
 
-router
-.route("/forgot-password")
-.post(forgot_password);
+router.post("/forgot-password", forgot)
 
-router
-.route("/reset-password")
-.post(reset_password);
+router.post("/reset-password", reset)
 
-module.exports = router;
+module.exports = router

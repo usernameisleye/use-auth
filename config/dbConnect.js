@@ -1,26 +1,20 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
+let string = process.env.DB_STRING
 
-let PORT = process.env.PORT;
-let DB_STRING = process.env.DB_STRING;
+const connectToDb = async () => {
+    const options = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
 
-const connectToDb = async (app) => {
     try{
-        await mongoose.connect(
-            DB_STRING, 
-            {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            }
-        );
-        
-        app.listen(PORT, () => {
-            console.log(`Server is connected and running on port ${PORT}`);
-        });
+        await mongoose.connect(string, options)
+        console.log(`DB connected`)
     }
     catch(error){
-        console.error(`Error connecting to MongoDB: ${error.message}`);
-        process.exit(1);
+        console.error(`Error connecting to MongoDB: ${error.message}`)
+        process.exit(1)
     }
-};
+}
 
-module.exports = connectToDb;
+module.exports = connectToDb

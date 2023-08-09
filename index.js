@@ -1,30 +1,32 @@
-require("dotenv").config();
-require("express-async-errors");
+require("dotenv").config()
+require("express-async-errors")
 
-const cors = require("cors");
-const express = require("express");
-const cookieParser = require("cookie-parser");
+const cors = require("cors")
+const express = require("express")
+const db = require("./config/dbConnect")
+const cookieParser = require("cookie-parser")
+const errorMiddleware = require("./middleware/error.middleware")
 
-const connectToDb = require("./config/dbConnect")
-const app = express();
-
-// Connect to DB
-connectToDb(app);
+const app = express()
+let port = process.env.PORT
 
 // Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+app.use(express.json())
+app.use(cookieParser())
+app.use(express.urlencoded({ extended: true }))
 
 // Routes
-app.use("/api/user", require("./routes/user.routes"));
+app.use("/api/v1/user", require("./routes/user.routes"))
+
+app.listen(port, async () => {
+    await db()
+
+    console.log(`Server is connected and running on port ${port}`)
+})
 
 // Handle errors
-app.use((error, req, res, next) => {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-
-    next();
-});
-
+errorMiddleware(app)
+app.on("error", (error) => {
+    console.error(`Server incurred an error: \n ${error}`)
+})
