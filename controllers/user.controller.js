@@ -1,31 +1,34 @@
 const response = require("../utils/response")
-const { signup, login, logout, forgotPassword, resetPassword } = require("../services/user.service")
+const UserService = require("../services/user.service")
+const userValidator = require("../utils/validators/user")
 
 const signup = async (req, res) => {
-    const r = await signup(req.body, res)
+    const { value: body } = userValidator.validate(req.body)
+    const r = await UserService.signup(body, res)
     res.status(201).json(response.success("User signed up", r))
 }
 
-const login = async (req, res) => {
-    const r = await login(req.body, res)
+const signin = async (req, res) => {
+    const { value: body } = userValidator.validate(req.body)
+    const r = await UserService.signin(body, res)
     res.status(200).json(response.success("User signed in", r))
 }
 
-const logout = (req, res) => {
-    const r = logout(res)
+const signout = (req, res) => {
+    const r = UserService.signout(res)
     res.status(200).json(response.success("User logged out", r))
 }
 
 const forgot = async (req, res) => {
-    const r = await forgotPassword(res, req.body.email)
+    const r = await UserService.forgotPassword(res, req.body.email)
     res.status(200).json(response.success("Success", r))
 }
 
 const reset = async (req, res) => {
     const { id, token } = req.query
     const { password, confirmPassword } = req.body
-    const r = await resetPassword(res, id, token, password, confirmPassword)
+    const r = await UserService.resetPassword(res, id, token, password, confirmPassword)
     res.status(200).json(response.success("Success", r))
 }
 
-module.exports = { signup, login, logout, forgot, reset }
+module.exports = { signup, signin, signout, forgot, reset }

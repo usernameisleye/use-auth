@@ -1,15 +1,15 @@
 const router = require("express").Router()
 const auth = require("../middleware/auth.middleware")
-const { signup, login, logout, forgot, reset } = require("../controllers/user.controller")
+const { signup, signin, signout, forgot, reset } = require("../controllers/user.controller")
 
 // Routes
 router.post("/signup", signup)
 
-router.post("/login", login)
+router.post("/signin", signin)
 
 router.use(auth)
 
-router.post("/logout", logout)
+router.post("/signout", signout)
 
 router.post("/forgot-password", forgot)
 

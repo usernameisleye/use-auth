@@ -15,4 +15,4 @@ const response = {
     }
 }
 
-export default response
+module.exports = response

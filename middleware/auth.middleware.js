@@ -1,22 +1,22 @@
 const User = require("../models/user.model")
 const jwt = require("jsonwebtoken")
-const error = require("../utils/error")
 
 const authMiddleware = async (req, res, next) => {
     const secret = process.env.SECRET
 
-    const token = req.cookies.tokkenn
-    if(!token) throw new error("Unauthorized access: Token not found", 401)
+    const token = req.cookies.jwt
+    if(!token) throw new Error("Unauthorized access: Token not found")
 
     try {
         const decoded = jwt.verify(token, secret)
 
-        let user = await User.findById(decoded.id)
-        if(!user) throw new error("Unauthorized access: User does not exists", 401)
+        let user = await User.findById(decoded._id)
+        if(!user) throw new Error("Unauthorized access: User does not exists")
         req.user = user
     }
     catch(error) {
-        throw new error("Unauthorized access: Invalid token", 401)
+        console.log(error.message)
+        throw new Error("Unauthorized access: Invalid token")
     }
 
     next()

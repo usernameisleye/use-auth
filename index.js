@@ -2,6 +2,7 @@ require("dotenv").config()
 require("express-async-errors")
 
 const cors = require("cors")
+const morgan = require("morgan")
 const express = require("express")
 const db = require("./config/dbConnect")
 const cookieParser = require("cookie-parser")
@@ -12,6 +13,7 @@ let port = process.env.PORT
 
 // Middlewares
 app.use(cors())
+app.use(morgan("dev"))
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
