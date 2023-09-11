@@ -3,7 +3,7 @@
 ## API Base
 
 ```
-...
+use-auth.vercel.app
 ```
 All API Methods support only POST Requests.
 
